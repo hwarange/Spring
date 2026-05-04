@@ -1,8 +1,25 @@
 import java.util.Objects;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
+/*
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Getter
+@Setter
+@NoArgsConstructor
 
+=> @Data하나로 통일가능
+ */
+
+@Data
 public class Member {
   
     private String name;
@@ -10,10 +27,11 @@ public class Member {
     private String email;
     private String phoneNumber;
 
-    public Member() {
-    
-    }
     // getter, setter, toString, equals, hashCode 등 필요한 메서드 작성
     // *alt + shift + s -> generate code 단축키
+    
+    
+	
+	
     
 }
