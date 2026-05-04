@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.ssafy.di</groupId>
+  <artifactId>Spring_02_DI_02_XML</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <properties>
+  	<maven.compiler.source>25</maven.compiler.source>
+  	<maven.compiler.target>25</maven.compiler.target>
+  </properties>
+  
+  <!-- 의존성 Spring IoC 컨테이너의 의존성 가져오기! -->
+  <dependencies>
+  <!-- Source: https://mvnrepository.com/artifact/org.springframework/spring-context -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context</artifactId>
+	    <version>7.0.7</version>
+	    <scope>compile</scope>
+	</dependency>
+  </dependencies>
+  
+</project>

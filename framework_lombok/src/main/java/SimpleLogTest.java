@@ -1,9 +1,10 @@
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SimpleLogTest {
+import lombok.extern.slf4j.Slf4j;
 
-    private static final Logger log = LoggerFactory.getLogger(SimpleLogTest.class);
+@Slf4j
+public class SimpleLogTest {
   
 	public static void main(String[] args) {
 	    // 멤버 객체 생성 후 로그 테스트

@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.ssafy</groupId>
+  <artifactId>Spring_02_DI_01_Reflection</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <properties>
+    <maven.compiler.source>25</maven.compiler.source>
+    <maven.compiler.target>25</maven.compiler.target>
+  </properties>
+  <!-- 의존성들을 기록해두는 공간 -->
+  <dependencies>
+  	<!-- Source: https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+	<dependency>
+	    <groupId>ch.qos.logback</groupId>
+	    <artifactId>logback-classic</artifactId>
+	    <version>1.5.32</version>
+	    <scope>compile</scope>
+	</dependency>
+
+  	<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter -->
+	<dependency>
+	    <groupId>org.junit.jupiter</groupId>
+	    <artifactId>junit-jupiter</artifactId>
+	    <version>6.0.2</version>
+	    <scope>test</scope>
+	</dependency>
+  </dependencies>
+
+</project>

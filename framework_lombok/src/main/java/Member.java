@@ -9,7 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /*
-@AllArgsConstructor
+
 @ToString
 @EqualsAndHashCode
 @Getter
@@ -20,6 +20,7 @@ import lombok.ToString;
  */
 
 @Data
+@AllArgsConstructor
 public class Member {
   
     private String name;
@@ -29,9 +30,6 @@ public class Member {
 
     // getter, setter, toString, equals, hashCode 등 필요한 메서드 작성
     // *alt + shift + s -> generate code 단축키
-    
-    
-	
-	
+
     
 }
