@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.ssafy</groupId>
+  <artifactId>framework</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <properties>
+  	<!-- 우리가 JDK버전을 25로 쓸 것입니다 Maven 컴파일러로 사용-->
+  	<maven.compiler.source>25</maven.compiler.source>
+  	<maven.compiler.target>25</maven.compiler.target>
+  	
+  </properties>
+  
+  <!-- 의존성을 추가!-->
+	<dependencies>
+	<!-- logback-classic이라는 의존성 추가-->
+	<!-- Source: https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+		<dependency>
+		    <groupId>ch.qos.logback</groupId>
+		    <artifactId>logback-classic</artifactId>
+		    <version>1.5.32</version>
+		    <scope>compile</scope>
+		</dependency>
+		
+		<!-- Source: https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter -->
+		<dependency>
+		    <groupId>org.junit.jupiter</groupId>
+		    <artifactId>junit-jupiter</artifactId>
+		    <version>5.14.4</version>
+		    <scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
