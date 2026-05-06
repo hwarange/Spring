@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/mvc
+           http://www.springframework.org/schema/mvc/spring-mvc.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--
+        Servlet Context 설정 (MVC 설정)
+
+        우리가 DispatcherServlet.init()에서 Java 코드로 했던 것들이 여기에 XML로 분리됩니다.
+
+        [우리 코드]                              [Spring Legacy XML]
+        handlerMappings.put("/hello", ...)  →  <context:component-scan> + @Controller
+        new ViewResolver("/WEB-INF/views")  →  <bean class="InternalResourceViewResolver">
+    -->
+
+    <!-- ① MVC 어노테이션 활성화 (@Controller, @RequestMapping, @GetMapping 등 인식) -->
+    <mvc:annotation-driven/>
+
+    <!--
+        ② 정적 리소스 처리
+        /css/**, /js/**, /images/** 같은 정적 파일 요청을 Tomcat Default Servlet에 위임
+        web.xml에서 url-pattern을 /로 설정했기 때문에 필요합니다.
+    -->
+    <mvc:default-servlet-handler/>
+
+    <!--
+        ③ ComponentScan — @Controller 빈 자동 탐색
+        우리가 init()에서 handlerMappings.put()으로 수동 등록하던 것을
+        @Controller + ComponentScan으로 자동 등록!
+    -->
+    <context:component-scan base-package="com.ssafy.mvc.controller"/>
+
+    <!--
+        ④ ViewResolver 설정
+        우리가 직접 만든 ViewResolver와 완전히 동일한 역할!
+        prefix + viewName + suffix = 물리 경로
+    -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+</beans>

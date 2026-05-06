@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        Root Application Context (공통 빈 설정)
+        ContextLoaderListener가 서버 시작 시 이 파일을 읽어서 ApplicationContext를 생성합니다.
+
+        여기에는 웹 계층(Controller)과 무관한 공통 빈을 등록합니다:
+        - Service 클래스
+        - DAO / Repository 클래스
+        - DataSource (DB 연결)
+        - Transaction Manager
+
+        이 실습에서는 비즈니스 로직이 Controller 안에 있으므로 비어 있습니다.
+    -->
+
+    <!-- 실제 프로젝트 예시 (주석 해제 후 사용):
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/ssafy"/>
+        <property name="username" value="root"/>
+        <property name="password" value="1234"/>
+    </bean>
+    -->
+
+</beans>
