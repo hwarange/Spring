@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+  BoardMapper.xml — 스켈레톤
+   - namespace 는 매퍼 인터페이스(BoardDao)의 FQN 과 일치해야 한다.
+   - resultType="Board" 와 같이 typeAlias 만 적을 수 있는 이유는
+     application.properties 에 mybatis.type-aliases-package 설정이 있기 때문.
+-->
+<mapper namespace="com.ssafy.mvc.model.dao.BoardDao">
+
+	<!-- TODO 12 : <sql id="boardColumns"> 정의 (id, title, writer, content, reg_date AS regDate, view_cnt AS viewCnt) -->
+
+
+	<!-- ════════════════════════ 기본 CRUD ════════════════════════ -->
+
+	<!-- TODO 13 : 아래 selectAll, selectOne 의 컬럼 목록을 <include refid="boardColumns"/> 로 교체 -->
+	<select id="selectAll" resultType="Board">
+		SELECT id, title, writer, content,
+		       reg_date AS regDate,
+		       view_cnt AS viewCnt
+		FROM board
+	</select>
+
+	<select id="selectOne" parameterType="int" resultType="Board">
+		SELECT id, title, writer, content,
+		       reg_date AS regDate,
+		       view_cnt AS viewCnt
+		FROM board
+		WHERE id = #{id}
+	</select>
+
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO board (title, writer, content)
+		VALUES (#{title}, #{writer}, #{content})
+	</insert>
+
+	<update id="updateBoard" parameterType="Board">
+		UPDATE board
+		SET title = #{title}, content = #{content}
+		WHERE id = #{id}
+	</update>
+
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM board
+		WHERE id = #{id}
+	</delete>
+
+	<update id="updateViewCnt" parameterType="int">
+		UPDATE board
+		SET view_cnt = view_cnt + 1
+		WHERE id = #{id}
+	</update>
+
+	<!-- ════════════════════════ 동적 SQL ════════════════════════ -->
+	<!-- searchByIf — <if> 로 검색 매퍼가 작성된 예시 샘플
+         id="searchByIf", parameterType="SearchCondition", resultType="Board"
+         key 값이 title, writer, content 인 경우에 각각 검색하도록 <if> 작성
+         key 값이 이 세 가지가 아닌 경우에는 검색 안함(전체 조회)
+         *주의: 검색 조건이 없는 경우 WHERE 절이 붙으면 안되므로 WHERE 키워드 별도 <if> 처리
+      -->
+	<select id="searchByIf" parameterType="SearchCondition" resultType="Board">
+        SELECT * FROM board
+    	<if test="key == 'title' or key == 'writer' or key == 'content'">
+            WHERE
+        </if>
+        <if test="key == 'title'">
+            ${key} LIKE CONCAT('%', #{word}, '%')
+        </if>
+        <if test="key == 'writer'">
+            writer = #{word}
+        </if>
+        <if test="key == 'content'">
+            content LIKE CONCAT('%', #{word}, '%')
+        </if>
+    </select>
+    
+    <select id="searchByIf2" parameterType="SearchCondition" resultType="Board">
+        SELECT * FROM board
+    	<if test="key == 'title' or key == 'writer' or key == 'content'">
+            WHERE
+        </if>
+        <if test="key == 'title' or key == 'writer' or key == 'content'" >
+            ${key} LIKE CONCAT('%', #{word}, '%')
+        </if>
+    </select>
+	<!--  TODO 01 : searchByChoose — <choose> 로 검색 매퍼 작성
+         id="searchByChoose", parameterType="SearchCondition", resultType="Board"
+         key 값이 title, writer, content 인 경우에 각각 검색하도록 <when> 작성
+         key 값이 이 세 가지가 아닌 경우에는 검색 안함(전체 조회)
+         *주의: 검색 조건이 없는 경우 WHERE 절이 붙으면 안되므로 WHERE 키워드 별도 <if> 처리
+	  -->
+	  
+	  <select id="searchByIf" parameterType="SearchCondition" resultType="Board">
+        SELECT * FROM board
+    	<if test="key == 'title' or key == 'writer' or key == 'content'">
+            WHERE
+        </if>
+        <choose>
+        	<when test="key == 'title'">
+            title LIKE CONCAT('%', #{word}, '%')
+	        </when>
+	        <when test="key == 'writer'">
+	            writer = #{word}
+	        </when>
+	        <when test="key == 'content'">
+	            content LIKE CONCAT('%', #{word}, '%')
+	        </when>
+        </choose>
+        
+    </select>
+
+	<!-- 02 : updateBoardDynamic — <set> + <if> 로 부분 수정 매퍼 작성
+	     id="updateBoardDynamic", parameterType="Board"
+	     <set> 안에 title, content 각각을 <if test="... != null and ... != ''"> 로 감쌀 것 -->
+	<update id="updateBoardDynamic" parameterType="Board">
+		UPDATE board
+		<set>
+			<if test="title != null and title != ''">title = #{title},</if>
+			<if test="content != null and content != ''">content = #{content},</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+
+	<!-- TODO 07 : deleteBoards — <foreach> 로 다건 삭제 매퍼 작성
+	     id="deleteBoards", parameterType="list"
+	     DELETE FROM board WHERE id IN <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach> -->
+
+
+	<!-- TODO 14 : selectByMinViewCnt — CDATA 로 부등호 안전 처리
+	     id="selectByMinViewCnt", parameterType="int", resultType="Board"
+	     <![CDATA[ ... WHERE view_cnt >= #{minViewCnt} ORDER BY view_cnt DESC ]]> -->
+
+
+	<!-- TODO 19B : search — <if> 두 개로 검색 + 정렬 매퍼 작성
+	     id="search", parameterType="SearchCondition", resultType="Board"
+	     <if test="key != 'none'"> WHERE ${key} LIKE concat('%', #{word}, '%') </if>
+	     <if test="orderBy != 'none'"> ORDER BY ${orderBy} ${orderByDir} </if>
+	     ※ 컬럼명은 ${} 치환, 사용자 입력값은 #{} 바인딩! -->
+
+
+</mapper>
